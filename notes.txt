@@ -1,0 +1,7 @@
+-we're going to create a game called "Escapre from the Skank"
+-the game is going to be a text-based adventure
+
+-what is going to be under the hood?:
+	-inventory item: name, description
+	-room: name, description, contents
+	-player: name, inventory; move, pick up items, use items, look (at rooms or items)
