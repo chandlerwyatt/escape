@@ -5,3 +5,8 @@
 	-inventory item: name, description
 	-room: name, description, contents
 	-player: name, inventory; move, pick up items, use items, look (at rooms or items)
+
+-Win Conditions: Get high, with hubcat, in the backyard, while Sam takes a picture
+
+-ideas to implement:
+	
