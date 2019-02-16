@@ -1,4 +1,5 @@
 # setup the game world
+from sys import exit
 from player import Player
 from rooms import LIVING_ROOM
 
@@ -33,6 +34,10 @@ def run_game():
             player.use_item(item_name)
         elif action.lower() == "help":
             player.help()
+        elif action.lower() == "speak":
+            player.location.speak()
+        elif action.lower() == "quit":
+            exit()
 
 
 run_game()
