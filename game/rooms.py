@@ -1,4 +1,4 @@
-from items import HUBCAT, DAB_RIG, MEAT, CAMERA
+from .items import HUBCAT, DAB_RIG, MEAT, CAMERA
 
 
 class Room:
@@ -16,9 +16,9 @@ class Room:
             for item in self.contents:
                 item.print()
 
-    def print_description(self):
+    def print_description(self, flags):
         print(f"You are in {self.name}.")
-        print("")
+        print()
         print(self.description)
 
     def print_neighbors(self):
@@ -33,7 +33,7 @@ class Room:
         else:
             return None
 
-    def speak(self):
+    def speak(self, flags):
         print("\nYou say \"Arf.\" Good boy.\n")
 
 
@@ -80,30 +80,38 @@ class TamirsRoom(Room):
 class Backyard(Room):
 
     name = "Backyard"
-    description = "Ahh the great outdoors. Beautiful day for a picture."\
+    description = "Ahh the great outdoors. Beautiful day for a picture. "\
         "Oh hey, there's Sam making beats on a log."
+    description_alt = "There is no one out here, "\
+        "but damn this backyard has potential!"
+
+    def print_description(self, flags):
+        print(f"You are in the {self.name}.")
+        print()
+        if flags.sam_backyard is False:
+            print(self.description_alt)
+        else:
+            print(self.description)
 
 
 class FrontPorch(Room):
 
     name = "Front Porch"
     description = "Sam is out here gettin spliffed mon"
-    description_alt = "There is no one here."\
+    description_alt = "There is no one here. "\
                       "A thin layer of ash covers everything"
 
-    sams_there = False
-
-    def speak(self):
-        print(f"{self.name}: \"Yo Sam, cash me ousside how bow dah?\"")
+    def speak(self, flags):
+        print(f"You: \"Yo Sam, cash me ousside how bow dah?\"")
         print("Sam: \"Alright, I'll meet you at the chateau.\"")
-        print("\nSam disappears around the corner. Some mysterious force"
+        print("\nSam disappears around the corner. Some mysterious force "
               "prevents you from following him.")
-        self.sams_there = True
+        flags.sam_backyard = True
 
-    def print_description(self):
-        print(f"You are in {self.name}.")
-        print("")
-        if self.sams_there is False:
+    def print_description(self, flags):
+        print(f"You are on the {self.name}.")
+        print()
+        if flags.sam_backyard is False:
             print(self.description)
         else:
             print(self.description_alt)

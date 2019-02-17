@@ -1,19 +1,14 @@
-import sys
-from items import LIGHTER, DAB_RIG, HUBCAT, MEAT, CAMERA
-from rooms import BOWMANS_ROOM, TAMIRS_ROOM, BACKYARD
-
-
-class PlayerFlags(object):
-
-    sam_cam = False
+from sys import exit
+from .items import LIGHTER, DAB_RIG, HUBCAT, MEAT, CAMERA
+from .rooms import BOWMANS_ROOM, TAMIRS_ROOM, BACKYARD
 
 
 class Player:
-    def __init__(self, name, location):
+    def __init__(self, name, location, flags):
         self.name = name
         self.inventory = {}
         self.location = location
-        self.flags = PlayerFlags()
+        self.flags = flags
 
     def help(self):
         print("""
@@ -52,6 +47,9 @@ class Player:
         else:
             print("You can't go there asshole")
 
+    def speak(self):
+        self.location.speak(self.flags)
+
     def use_item(self, name):
         item = self.inventory.get(name)
         if item is None:
@@ -65,29 +63,30 @@ class Player:
                 return
             hubcat = self.inventory.get(HUBCAT.name)
             if hubcat is None:
-                print("Why are you dabbing by yourself?"
+                print("Why are you dabbing by yourself? "
                       "Everything OK at home?")
                 return
             if self.flags.sam_cam is False:
-                print("No one will believe you dabbed"
+                print("No one will believe you dabbed "
                       "this gloriously without a photo")
                 return
             print("You WIN!!!")
-            sys.exit(0)
+            exit(0)
         elif item == MEAT and self.location == BOWMANS_ROOM:
-            print("You give the meat to Bowman and he is pleased."
+            print("You give the meat to Bowman and he is pleased. "
                   "His loudness is preserved. He hands you a lighter.")
             self.inventory[LIGHTER.name] = LIGHTER
         elif item == MEAT:
-            print("You ate the meat you imbecile!"
+            print("You ate the meat you imbecile! "
                   "Bowman emerges and eats your liver with a nice chianti.")
-            sys.exit(0)
+            exit(0)
         elif item == HUBCAT and self.location == TAMIRS_ROOM:
             print("Tamir is going to be pissed son.")
             del self.inventory[item.name]
             self.location.contents.append(item)
-        elif item == CAMERA and self.location == BACKYARD:
-            print("You hand the camera to Sam. He is a fancy boy,"
+        elif item == CAMERA and self.location == BACKYARD\
+                and self.flags.sam_backyard is True:
+            print("You hand the camera to Sam. He is a fancy boy, "
                   "and will take a sexy photo of you.")
             del self.inventory[item.name]
             self.flags.sam_cam = True
