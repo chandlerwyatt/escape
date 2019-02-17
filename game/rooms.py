@@ -69,6 +69,9 @@ class BowmansRoom(Room):
     name = "Bowman's Room"
     description = "Screeching vocals emanate from a blanket fort."
 
+    def speak(self, flags):
+        print("Bowman is too hungry to speak with you right now.")
+
 
 class TamirsRoom(Room):
 
@@ -81,7 +84,7 @@ class Backyard(Room):
 
     name = "Backyard"
     description = "Ahh the great outdoors. Beautiful day for a picture. "\
-        "Oh hey, there's Sam making beats on a log."
+        "Sam is back here making \"art\"."
     description_alt = "There is no one out here, "\
         "but damn this backyard has potential!"
 

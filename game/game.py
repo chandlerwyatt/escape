@@ -23,11 +23,11 @@ class Game(object):
 
         while True:
             player.location.print_description(self.flags)
-            print("")
+            print()
             player.location.print_contents()
-            print("")
+            print()
             player.location.print_neighbors()
-            print("")
+            print()
 
             raw = input("Whatchu wanna do? ")
             raw = raw.split(" ")
